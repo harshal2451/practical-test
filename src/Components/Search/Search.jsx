@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   textField: {
-    width: "90%",
+    width: "100%",
   },
 }));
 
@@ -29,7 +29,7 @@ function Search(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <FormControl
         className={clsx(classes.margin, classes.textField)}
         variant="outlined"

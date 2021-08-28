@@ -4,7 +4,8 @@ import React from "react";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    padding: "0px 50px",
+    padding: "0px 20px",
+    width: "100%",
   },
   details: {
     display: "flex",

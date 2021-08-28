@@ -25,10 +25,12 @@ function Home() {
       let searchList = holdList.filter((item) =>
         item.title.includes(e.target.value)
       );
+      console.log("search", searchList);
       setHoldList(searchList);
     } else {
       dispatch(actions.fetchList());
     }
+    console.log(e.target.value);
     setValue(e.target.value);
   };
   return (
@@ -42,9 +44,9 @@ function Home() {
       }}
     >
       <Search handleChange={onChange} value={value} />
-      <div>
+      <div style={{ width: "100%" }}>
         {holdList?.map((item) => (
-          <ListContainer item={item} />
+          <ListContainer key={Math.random() * 1000} item={item} />
         ))}
       </div>
     </div>

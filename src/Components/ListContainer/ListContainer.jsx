@@ -18,7 +18,7 @@ function ListContainer({ item }) {
   }, [item, listItem]);
   return (
     <div>
-      <h2 style={{ paddingLeft: "50px" }}>{item?.title}</h2>
+      <h2 style={{ paddingLeft: "20px" }}>{item?.title}</h2>
       {listItems?.map((item) => (
         <Album key={Math.random() * 1000} item={item} />
       ))}

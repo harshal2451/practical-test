@@ -56,7 +56,6 @@ export function fetchList() {
       .get("https://jsonplaceholder.typicode.com/albums")
       .then((response) => {
         const list = response.data;
-        console.log("list API", list);
         dispatch(fetchSuccessList(list));
       })
       .catch((error) => {
@@ -74,7 +73,6 @@ export function fetchListItem() {
       .then((response) => {
         const list = response.data;
 
-        console.log("listItem API", list);
         dispatch(fetchSuccessListItem(list));
       })
       .catch((error) => {
