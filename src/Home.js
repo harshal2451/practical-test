@@ -11,7 +11,7 @@ function Home() {
     loading: state.loading,
   }));
   const [holdList, setHoldList] = useState([]);
-
+  const [duplicate, setDuplicate] = useState([]);
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -30,6 +30,7 @@ function Home() {
   useEffect(() => {
     let data = list.slice(0, 5);
     setHoldList(data);
+    setDuplicate(data);
   }, [list]);
 
   const onChange = (e) => {
@@ -37,7 +38,16 @@ function Home() {
       let searchList = holdList.filter((item) =>
         item.title.includes(e.target.value.toLowerCase())
       );
+
       setHoldList(searchList);
+
+      console.log("hello", duplicate);
+      if (searchList.length === 0) {
+        let searchList1 = duplicate.filter((item) =>
+          item.title.includes(e.target.value.toLowerCase())
+        );
+        setHoldList(searchList1);
+      }
     } else {
       let data = list.slice(0, 5);
       setHoldList(data);
