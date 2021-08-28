@@ -17,20 +17,20 @@ function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    setHoldList(list);
-  }, [list, holdList]);
+    let data = list.slice(0, 5);
+    setHoldList(data);
+  }, [list]);
 
   const onChange = (e) => {
     if (e.target.value !== "") {
       let searchList = holdList.filter((item) =>
         item.title.includes(e.target.value)
       );
-      console.log("search", searchList);
       setHoldList(searchList);
     } else {
-      dispatch(actions.fetchList());
+      let data = list.slice(0, 5);
+      setHoldList(data);
     }
-    console.log(e.target.value);
     setValue(e.target.value);
   };
   return (
@@ -48,6 +48,11 @@ function Home() {
         {holdList?.map((item) => (
           <ListContainer key={Math.random() * 1000} item={item} />
         ))}
+        {holdList?.length == 0 && (
+          <div style={{ padding: "10px 10px", textAlign: "center" }}>
+            No Records Found
+          </div>
+        )}
       </div>
     </div>
   );

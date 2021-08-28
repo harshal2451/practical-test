@@ -14,8 +14,9 @@ function ListContainer({ item }) {
     let items = listItem?.filter(
       (listItem) => listItem.albumId === item.userId
     );
-    setListItems(items);
-  }, [item, listItem]);
+    let data = items.slice(0, 10);
+    setListItems(data);
+  }, [item]);
   return (
     <div>
       <h2 style={{ paddingLeft: "20px" }}>{item?.title}</h2>

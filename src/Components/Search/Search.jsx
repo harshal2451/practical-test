@@ -1,18 +1,18 @@
 import {
   FormControl,
-  FormHelperText,
   InputAdornment,
   makeStyles,
   OutlinedInput,
 } from "@material-ui/core";
 
 import clsx from "clsx";
-import React, { useState } from "react";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
+    outline: "none",
   },
   margin: {
     margin: theme.spacing(1),
@@ -22,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: "100%",
+    backgroundColor: "#EEE5FF",
+    outline: "none",
+  },
+  color: {
+    color: "#8B50FF",
+  },
+  arrow: {
+    color: "#8B50FF",
   },
 }));
 
@@ -35,12 +43,16 @@ function Search(props) {
         variant="outlined"
       >
         <OutlinedInput
-          id="outlined-adornment-weight"
           value={props.value}
           onChange={props.handleChange}
-          endAdornment={<InputAdornment position="end">></InputAdornment>}
-          aria-describedby="outlined-weight-helper-text"
+          endAdornment={
+            <InputAdornment className={classes.color} position="end">
+              <h4 className={classes.arrow}>></h4>
+            </InputAdornment>
+          }
+          // aria-describedby="outlined-weight-helper-text"
           labelWidth={0}
+          placeholder="See your financial report"
         />
       </FormControl>
     </div>
