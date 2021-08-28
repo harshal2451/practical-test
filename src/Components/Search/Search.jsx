@@ -29,7 +29,7 @@ function Search(props) {
   const classes = useStyles();
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "95%" }}>
       <FormControl
         className={clsx(classes.margin, classes.textField)}
         variant="outlined"
