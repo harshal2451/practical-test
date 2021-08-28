@@ -6,12 +6,14 @@ import Search from "./Components/Search/Search";
 import * as actions from "./redux/albumActions";
 function Home() {
   const dispatch = useDispatch();
-  const { list, loading } = useSelector((state) => ({
+  const { list, loading, listItems } = useSelector((state) => ({
     list: state.list,
     loading: state.loading,
+    listItems: state.listItems,
   }));
   const [holdList, setHoldList] = useState([]);
   const [duplicate, setDuplicate] = useState([]);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -29,9 +31,15 @@ function Home() {
 
   useEffect(() => {
     let data = list.slice(0, 5);
+    data.forEach((item) => {
+      let filteredData = listItems?.filter(
+        (listItem) => listItem.albumId === item.userId
+      );
+      item.child = filteredData.splice(0, 10);
+    });
     setHoldList(data);
     setDuplicate(data);
-  }, [list]);
+  }, [list, listItems]);
 
   const onChange = (e) => {
     if (e.target.value !== "") {
@@ -39,18 +47,49 @@ function Home() {
         item.title.includes(e.target.value.toLowerCase())
       );
 
-      setHoldList(searchList);
+      // setHoldList(searchList);
 
-      console.log("hello", duplicate);
       if (searchList.length === 0) {
-        let searchList1 = duplicate.filter((item) =>
-          item.title.includes(e.target.value.toLowerCase())
-        );
-        setHoldList(searchList1);
+        let duplicateData = [...duplicate];
+        let emptyData = [];
+        duplicateData.forEach((item) => {
+          let childData1 = item?.child.filter((childData) =>
+            childData.title.includes(e.target.value.toLowerCase())
+          );
+          if (childData1.length !== 0) {
+            emptyData.push(item);
+          }
+          item.child = childData1;
+        });
+
+        setHoldList(emptyData);
+
+        if (emptyData.length === 0) {
+          let emptyData1 = [];
+          duplicateData.forEach((item) => {
+            let childData1 = item?.child.filter((childData) =>
+              childData.title.includes(e.target.value.toLowerCase())
+            );
+            if (childData1.length !== 0) {
+              emptyData1.push(item);
+            }
+            item.child = childData1;
+          });
+          setHoldList(emptyData1);
+        }
+      } else {
+        setHoldList(searchList);
       }
     } else {
       let data = list.slice(0, 5);
+      data.forEach((item) => {
+        let filteredData = listItems?.filter(
+          (listItem) => listItem.albumId === item.userId
+        );
+        item.child = filteredData.splice(0, 10);
+      });
       setHoldList(data);
+      setDuplicate(data);
     }
     setValue(e.target.value);
   };
