@@ -1,3 +1,4 @@
+import { CircularProgress, makeStyles } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ListContainer from "./Components/ListContainer/ListContainer";
@@ -5,10 +6,20 @@ import Search from "./Components/Search/Search";
 import * as actions from "./redux/albumActions";
 function Home() {
   const dispatch = useDispatch();
-  const { list } = useSelector((state) => ({
+  const { list, loading } = useSelector((state) => ({
     list: state.list,
+    loading: state.loading,
   }));
   const [holdList, setHoldList] = useState([]);
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+      "& > * + *": {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  }));
 
   const [value, setValue] = useState("");
   useEffect(() => {
@@ -24,7 +35,7 @@ function Home() {
   const onChange = (e) => {
     if (e.target.value !== "") {
       let searchList = holdList.filter((item) =>
-        item.title.includes(e.target.value)
+        item.title.includes(e.target.value.toLowerCase())
       );
       setHoldList(searchList);
     } else {
@@ -33,6 +44,8 @@ function Home() {
     }
     setValue(e.target.value);
   };
+
+  const classes = useStyles();
   return (
     <div
       style={{
@@ -44,6 +57,11 @@ function Home() {
       }}
     >
       <Search handleChange={onChange} value={value} />
+      {loading && (
+        <div className={classes.root}>
+          <CircularProgress color="secondary" />
+        </div>
+      )}
       <div style={{ width: "100%" }}>
         {holdList?.map((item) => (
           <ListContainer key={Math.random() * 1000} item={item} />
