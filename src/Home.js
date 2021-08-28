@@ -48,7 +48,7 @@ function Home() {
         {holdList?.map((item) => (
           <ListContainer key={Math.random() * 1000} item={item} />
         ))}
-        {holdList?.length == 0 && (
+        {holdList?.length === 0 && (
           <div style={{ padding: "10px 10px", textAlign: "center" }}>
             No Records Found
           </div>
